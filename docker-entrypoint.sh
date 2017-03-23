@@ -225,4 +225,12 @@ if [ "$(ls -A /init.wp | wc -l)" -ne 0 ]; then
     echo "Successfully copied WordPress to /var/www/html"
 fi
 
+# Cambiamos permisos a los archivos de /var/www/html al usuario www-data
+echo "Modifying privileges on /var/www/html"
+find /var/www/html -type d -exec chmod -R 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
+chown -R www-data:www-data /var/www/html;
+echo "Successfully modified privileges on /var/www/html"
+
+
 exec "$@"
