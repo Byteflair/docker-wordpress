@@ -216,19 +216,11 @@ EOPHP
 	done
 fi
 
-if [ "$(ls -A /init.wp | wc -l)" -ne 0 ]; then
-    echo "Removing default WordPress content from /var/www/html"
-    rm -rf /var/www/html/*
-    echo "Default WordPress content sucessfully removed !"
-    echo "Copying mounted WordPress to /var/www/html"
-    cp -R /init.wp/* /var/www/html/
-    echo "Successfully copied WordPress to /var/www/html"
-fi
-
-# Cambiamos permisos a los archivos de /var/www/html al usuario www-data
 echo "Modifying privileges on /var/www/html"
+# Set proper permissions to files and folders
 find /var/www/html -type d -exec chmod -R 755 {} \;
 find /var/www/html -type f -exec chmod 644 {} \;
+# Change ownership on /var/www/html to www-data
 chown -R www-data:www-data /var/www/html;
 echo "Successfully modified privileges on /var/www/html"
 
